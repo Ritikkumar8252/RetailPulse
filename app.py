@@ -19,10 +19,9 @@ OUTPUT_DIR = BASE_DIR / "outputs"
 
 
 # ---------------- LOAD DATA ----------------
-
 @st.cache_data
 def load_sales_data():
-    file_path = DATA_DIR / "retailpulse_positive_sales.csv"
+    file_path = DATA_DIR / "retailpulse_deployment_sales.csv.gz"
 
     if not file_path.exists():
         raise FileNotFoundError(
@@ -31,12 +30,14 @@ def load_sales_data():
 
     df = pd.read_csv(
         file_path,
+        compression="gzip",
         parse_dates=["InvoiceDate"],
         dtype={
             "InvoiceNo": "string",
             "StockCode": "string",
-            "Country": "string"
-        }
+            "Country": "string",
+        },
+        low_memory=False,
     )
 
     df["Revenue"] = pd.to_numeric(
