@@ -1,11 +1,9 @@
 from pathlib import Path
 
+import numpy as np
 import pandas as pd
 import plotly.express as px
 import streamlit as st
-from pathlib import Path
-
-import numpy as np
 
 # ---------------- PAGE CONFIGURATION ----------------
 
@@ -911,7 +909,7 @@ elif page == "Model Evaluation":
     # Load saved model evaluation summary
     try:
         model_summary = pd.read_csv(
-            "outputs/retailpulse_product_model_summary.csv"
+            OUTPUT_DIR / "retailpulse_product_model_summary.csv"
         )
 
     except FileNotFoundError:
